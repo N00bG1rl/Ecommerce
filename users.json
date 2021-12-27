@@ -1,1 +1,17 @@
-[]
+[
+  {
+    "email": "test@test.com",
+    "password": "fdff",
+    "id": "f55e3c54"
+  },
+  {
+    "email": "hello@gmail.com",
+    "password": "123",
+    "id": "a9d0c4a3"
+  },
+  {
+    "email": "helen@kaks.ee",
+    "password": "3928bd839e9ec4b07bc4c6b84ff47023e544b11a5b2c02631f0abb9eeac9f245205d65d61f22d73c623c9347595216345155bec7111a147c9ab892a3288aea29.bf9bf11b9dce6006",
+    "id": "6abfc78a"
+  }
+]

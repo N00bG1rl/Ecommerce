@@ -1,16 +1,23 @@
 const express = require('express')
 // Middleware
 const bodyParser = require('body-parser')
-
-const usersRepo = require('./repo/users')
+const cookieSession = require('cookie-session')
+const usersRepo = require('./Repo/users')
 
 // Creates an Express application.
 const app = express()
 
 // Refactor
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(
+  cookieSession({
+    // For pretending to someone else in browser - so cookie does not get
+    // stolen with correct key
+    keys: ['jj8hjghgh798gyyf'],
+  })
+)
 
-app.get('/', (req, res) => {
+app.get('/signup', (req, res) => {
   res.send(`
     <div>
       <form method="POST">
@@ -51,7 +58,7 @@ app.get('/', (req, res) => {
 
 // app.post('/', bodyParser.urlencoded({ extended: true }), (req, res) => {}
 // User trying to create acount
-app.post('/', async (req, res) => {
+app.post('/signup', async (req, res) => {
   // Deconstructor from req.body
   const { email, password, passwordConfirmation } = req.body
 
@@ -64,7 +71,61 @@ app.post('/', async (req, res) => {
     return res.send('Passwords must match.')
   }
 
+  // Create new user
+  const user = await usersRepo.create({ email, password })
+
+  // Added by cookie session
+  req.session.userId = user.id
+
   res.send('Acount created.')
+})
+
+app.get('/signout', (req, res) => {
+  req.session = null
+
+  res.send('Logged out.')
+})
+
+app.get('/signin', (req, res) => {
+  res.send(
+    `
+    <div>
+      <form method="POST">
+        <input name="email" placeholder="email" />
+        <input name="password" placeholder="password" />
+        <button>Sign In</button>
+      </form>
+    </div>
+  `
+  )
+})
+
+app.post('/signin', async (req, res) => {
+  // Destructor from app.get
+  const { email, password } = req.body
+
+  // Find if database has this email: email
+  const user = await usersRepo.getOneBy({ email })
+
+  // If email is not found
+  if (!user) {
+    return res.send('Email not found.')
+  }
+
+  const validPassword = await usersRepo.comparePasswords(
+    user.password,
+    password
+  )
+
+  // If password wont match with user
+  if (!validPassword) {
+    return res.send('Invalid password.')
+  }
+
+  // Authenticate user
+  req.session.userId = user.id
+
+  res.send('You are signed in.')
 })
 
 app.listen(3000, () => {
