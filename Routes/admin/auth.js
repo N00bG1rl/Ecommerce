@@ -1,7 +1,6 @@
 const express = require('express')
-// Destructure out one validator we care about
-const { check, validationResult } = require('express-validator')
 
+const { handleErrors } = require('./middlewares')
 const usersRepo = require('../../Repo/users')
 const signupTemp = require('../../Views/admin/auth/signup')
 const signinTemp = require('../../Views/admin/auth/signin')
@@ -25,16 +24,9 @@ router.post(
   '/signup',
   // express-validator, imported from validators.js
   [requireEmail, requirePassword, requirePasswordConfirmation],
+  // Error handling is extracted to custom middleware.js
+  handleErrors(signupTemp),
   async (req, res) => {
-    // express-validator
-    const errors = validationResult(req)
-    console.log(errors)
-
-    // isEmpty() is from validators
-    if (!errors.isEmpty()) {
-      return res.send(signupTemp({ req, errors }))
-    }
-
     // Deconstructor from req.body
     const { email, password } = req.body
     // Create new user
@@ -65,16 +57,9 @@ router.get('/signin', (req, res) => {
 router.post(
   '/signin',
   [requireValidEmail, requireValidPassword],
+  // Error handling is extracted to custom middleware.js
+  handleErrors(signinTemp),
   async (req, res) => {
-    // express-validator
-    const errors = validationResult(req)
-    console.log(errors)
-
-    // isEmpty() is from validators
-    if (!errors.isEmpty()) {
-      return res.send(signinTemp({ errors }))
-    }
-
     // Destructor from app.get
     const { email } = req.body
     const user = await usersRepo.getOneBy({ email })

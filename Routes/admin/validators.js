@@ -4,8 +4,24 @@ const { check } = require('express-validator')
 const usersRepo = require('../../Repo/users')
 
 module.exports = {
-  requireTitle: check('title').trim().isLength({ min: 5, max: 20 }),
-  requirePrice: check('price').trim().toFloat().isFloat({ min: 1 }),
+  requireTitle: check('title')
+    .trim()
+    .isLength({ min: 5, max: 20 })
+    .withMessage('Must be between 5 and 20 characters'),
+  requirePrice: check('price')
+    .trim()
+    .toFloat()
+    .isFloat({ min: 1 })
+    .withMessage('Must be creater than 1'),
+  requireImage: check('image').custom((image, { req }) => {
+    const file = req.file
+    if (!file) {
+      throw new Error('Please upload image')
+    }
+    return (req, res, next) => {
+      next()
+    }
+  }),
   requireEmail: check('email')
     .trim()
     .normalizeEmail()
