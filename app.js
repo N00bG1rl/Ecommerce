@@ -3,6 +3,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cookieSession = require('cookie-session')
 const authRouter = require('./Routes/admin/auth')
+const productsRouter = require('./Routes/admin/products')
 
 // Creates an Express application.
 const app = express()
@@ -19,6 +20,7 @@ app.use(
   })
 )
 app.use(authRouter)
+app.use(productsRouter)
 
 app.listen(3000, () => {
   console.log('Listening')

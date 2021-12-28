@@ -1,9 +1,11 @@
 // Destructure out one validator we care about
-const { check, validationResult } = require('express-validator')
+const { check } = require('express-validator')
 
 const usersRepo = require('../../Repo/users')
 
 module.exports = {
+  requireTitle: check('title').trim().isLength({ min: 5, max: 20 }),
+  requirePrice: check('price').trim().toFloat().isFloat({ min: 1 }),
   requireEmail: check('email')
     .trim()
     .normalizeEmail()
