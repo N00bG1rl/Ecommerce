@@ -1,10 +1,12 @@
 const express = require('express')
 const multer = require('multer')
 
-const { handleErrors } = require('./middlewares')
+// Import custom middlewares
+const { handleErrors, requireAuth } = require('./middlewares')
 const productsRepo = require('../../Repo/productsRepo')
 const newProductsTemp = require('../../Views/admin/products/new')
 const productsTemp = require('../../Views/admin/products/index')
+const productsEditTemp = require('../../Views/admin/products/edit')
 const { requireTitle, requirePrice, requireImage } = require('./validators')
 
 // SubRouter for app = express()
@@ -13,18 +15,20 @@ const router = express.Router()
 const upload = multer({ storage: multer.memoryStorage() })
 
 // Find and render all products
-router.get('/admin/products', async (req, res) => {
+router.get('/admin/products', requireAuth, async (req, res) => {
   const products = await productsRepo.getAll()
   res.send(productsTemp({ products }))
 })
 
-router.get('/admin/products/new', (req, res) => {
+router.get('/admin/products/new', requireAuth, (req, res) => {
   res.send(newProductsTemp({}))
 })
 
 // Require stuff from validators and last arg is callback
 router.post(
   '/admin/products/new',
+  // Auth handling is extracted to custom middleware.js
+  requireAuth,
   // multer - middleware
   // Middleware need to be correct order to work together
   upload.single('image'),
@@ -39,8 +43,21 @@ router.post(
     const { title, price } = req.body
     await productsRepo.create({ title, price, image })
 
-    res.send('Submitted')
+    res.redirect('/admin/products')
   }
 )
+
+// :id is wildcard - request automatically fills in with any chars
+router.get('/admin/products/:id/edit', requireAuth, async (req, res) => {
+  const product = await productsRepo.getOne(req.params.id)
+
+  if (!product) {
+    return res.send('Product not found')
+  }
+
+  res.send(productsEditTemp({ product }))
+})
+
+router.post('/admin/products/:id/edit', requireAuth, async (req, res) => {})
 
 module.exports = router

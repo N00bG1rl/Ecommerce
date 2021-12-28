@@ -38,7 +38,7 @@ router.post(
     // Added by cookie session
     req.session.userId = user.id
 
-    res.send('Acount created.')
+    res.redirect('/admin/products')
   }
 )
 
@@ -67,7 +67,7 @@ router.post(
     // Authenticate user
     req.session.userId = user.id
 
-    res.send('You are signed in.')
+    res.redirect('/admin/products')
   }
 )
 
