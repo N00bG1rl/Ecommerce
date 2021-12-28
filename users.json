@@ -19,5 +19,27 @@
     "password": "7b7806220e2e95f51020bc6cda41fb609a02614c7c27cd1baa1d3ee65bc206b759f2708698921f09a4076412ecd8392dd07d49bbc919d7d19a77ae6baa7d3bde.f06c48eee3631794",
     "passwordConfirmation": "1234",
     "id": "d5b6b640"
+  },
+  {
+    "email": "test2@test2.com",
+    "password": "2e89a76a4a521452e731cab0ff5082f16f22d2e616cbd3e22541b74ca004003634b79e0f6f0ea4a5cf657cc446b6f72003167ee917533ee766c6e81228234ba3.9696b554f0a60220",
+    "passwordConfirmation": "1234",
+    "id": "a4f86c86"
+  },
+  {
+    "email": "test3@test3.ee",
+    "password": "91b4f2f6429c2bf84cdb0015be867c2c0c98c3938e1416c74c20fb62324666a297864cfdaa8458bd63b13833cf1b184dd55eca55194b50d1a79121f559c3480a.7ac6751e8ffec950",
+    "passwordConfirmation": "1234",
+    "id": "f665e1f1"
+  },
+  {
+    "email": "test4@test.com",
+    "password": "d69de59a045878a711f39a70f481399c469c3ce6811f46da656dd14603fcf661e5854fa6a55dd517d3372cae03c58c2ab1ddbe7e436f76ce66e45749a4b0a651.38c6458c110b8e6a",
+    "id": "e147b943"
+  },
+  {
+    "email": "test6@test.com",
+    "password": "344c14b9d1bf7898b50903b17eecf943b2eaf51decb2a3b41a8064954613c596f76f1b493f85190c550caaa828936260414febda1c30b998800d0d6ee5204948.e28d24bef14b7c93",
+    "id": "a550b770"
   }
 ]

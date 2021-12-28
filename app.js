@@ -7,6 +7,8 @@ const authRouter = require('./Routes/admin/auth')
 // Creates an Express application.
 const app = express()
 
+// Make public folder to be public, for style...
+app.use(express.static('public'))
 // Refactor
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(

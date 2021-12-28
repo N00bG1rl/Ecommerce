@@ -36,12 +36,11 @@ router.post(
     }
 
     // Deconstructor from req.body
-    const { email, password, passwordConfirmation } = req.body
+    const { email, password } = req.body
     // Create new user
     const user = await usersRepo.create({
       email,
       password,
-      passwordConfirmation,
     })
 
     // Added by cookie session
