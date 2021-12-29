@@ -58,6 +58,35 @@ router.get('/admin/products/:id/edit', requireAuth, async (req, res) => {
   res.send(productsEditTemp({ product }))
 })
 
-router.post('/admin/products/:id/edit', requireAuth, async (req, res) => {})
+router.post(
+  '/admin/products/:id/edit',
+  // Require login
+  requireAuth,
+  // Edit image
+  upload.single('image'),
+  [requireTitle, requirePrice],
+  // As sec arg we entered func as cheat for errors middleware ...?
+  handleErrors(productsEditTemp, async req => {
+    // It takes current project and returns it
+    const product = await productsRepo.getOne(req.params.id)
+    return { product }
+  }),
+  async (req, res) => {
+    const changes = req.body
+
+    if (req.file) {
+      changes.image = req.file.buffer.toString('base64')
+    }
+
+    try {
+      // Sec para is for changes we want to apply
+      await productsRepo.update(req.params.id, changes)
+    } catch {
+      res.send('Could not find item.')
+    }
+
+    res.redirect('/admin/products')
+  }
+)
 
 module.exports = router

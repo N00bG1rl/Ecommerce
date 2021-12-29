@@ -3,15 +3,22 @@ const { validationResult } = require('express-validator')
 
 // Custom error handling middleware
 module.exports = {
-  handleErrors(templates) {
+  // sec callback is for products cheat at products.js
+  handleErrors(templates, dataCallback) {
     // Return a function because every middleware has to be a func
-    return (req, res, next) => {
+    return async (req, res, next) => {
       // express-validator
       const errors = validationResult(req)
 
       // isEmpty() is from validators
       if (!errors.isEmpty()) {
-        return res.send(templates({ req, errors }))
+        // Some weird product cheat?
+        let data = {}
+        if (dataCallback) {
+          data = await dataCallback(req)
+        }
+
+        return res.send(templates({ errors, ...data }))
       }
 
       // next() allows to continue function execution (if there was no errors)
