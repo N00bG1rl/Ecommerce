@@ -1,4 +1,4 @@
-const layout = require('../layout')
+const layout = require('../layoutAdmin')
 const { getErrors } = require('../../helpers')
 
 // Destructure out an object

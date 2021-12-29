@@ -1,4 +1,4 @@
-const layout = require('../layout')
+const layout = require('../layoutAdmin')
 
 // Template function
 module.exports = ({ products }) => {

@@ -1,14 +1,22 @@
 body {
-  --primary: #631d76;
-  --secondary: #9e4770;
+  --primary: #201a23;
+  --secondary: #72666c;
   --white: #fbfbfb;
   --dark: #2e2532;
   --black: #201a23;
 }
 
+header {
+  margin-bottom: 20px;
+}
+
 .product-card figure {
   text-align: center;
   padding: 5px;
+}
+
+.navbar {
+  border-bottom: 1px solid var(--secondary);
 }
 
 .navbar ul.social {
@@ -20,10 +28,6 @@ body {
 }
 .navbar ul.social li a {
   color: var(--white);
-}
-
-.banner {
-  margin: 50px;
 }
 
 .columns.products {
@@ -45,12 +49,15 @@ body {
 .navbar-buttons {
   display: flex;
 }
+.navbar-buttons a {
+  color: var(--dark);
+}
 
 .navbar-top .container.navbar-container,
 .navbar-bottom .container.navbar-container {
   display: flex;
   justify-content: space-between;
-  padding: 0px 5%;
+  padding: 10px 5%;
   align-items: center;
 }
 

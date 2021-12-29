@@ -1,5 +1,5 @@
 const { getErrors } = require('../../helpers')
-const layout = require('../layout')
+const layout = require('../layoutAdmin')
 
 // Template function
 module.exports = ({ product, errors }) => {
