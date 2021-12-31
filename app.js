@@ -2,9 +2,12 @@ const express = require('express')
 // Middleware
 const bodyParser = require('body-parser')
 const cookieSession = require('cookie-session')
+
+// Routes
 const authRouter = require('./Routes/admin/auth')
 const adminProductsRouter = require('./Routes/admin/products')
 const productsRouter = require('./Routes/products')
+const cartsRouter = require('./Routes/carts')
 
 // Creates an Express application.
 const app = express()
@@ -20,9 +23,11 @@ app.use(
     keys: ['jj8hjghgh798gyyf'],
   })
 )
+// Assosiate routes
 app.use(authRouter)
 app.use(adminProductsRouter)
 app.use(productsRouter)
+app.use(cartsRouter)
 
 app.listen(3000, () => {
   console.log('Listening')

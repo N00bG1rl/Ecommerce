@@ -8,5 +8,12 @@
     "express-validator": "^6.14.0",
     "multer": "^1.4.4",
     "nodemon": "^2.0.15"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "./users.json",
+      "./products.json",
+      "./carts.json"
+    ]
   }
 }
