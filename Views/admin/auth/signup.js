@@ -1,7 +1,6 @@
 const layout = require('../layoutAdmin')
 const { getErrors } = require('../../helpers')
 
-// Destructure out an object
 module.exports = ({ req, errors }) => {
   return layout({
     content: `

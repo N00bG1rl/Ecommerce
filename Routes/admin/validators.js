@@ -1,4 +1,3 @@
-// Destructure out one validator we care about
 const { check } = require('express-validator')
 
 const usersRepo = require('../../Repo/users')
@@ -40,7 +39,6 @@ module.exports = {
   requirePasswordConfirmation: check('passwordConfirmation')
     .trim()
     .isLength({ min: 4, max: 20 })
-    // Destructure req => const req = obj.req
     .custom((passwordConfirmation, { req }) => {
       if (passwordConfirmation !== req.body.password) {
         throw new Error('Passwords must match.')
@@ -71,7 +69,6 @@ module.exports = {
         user.password,
         password
       )
-      // If password wont match with user
       if (!validPassword) {
         throw new Error('Invalid password.')
       }

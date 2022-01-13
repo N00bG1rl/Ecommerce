@@ -1,11 +1,8 @@
 const layout = require('../layoutMain')
 
-// Render out all of our products
 module.exports = ({ products }) => {
-  // Map through every product
   const renderedProducts = products
     .map(product => {
-      // Array of strings, need joining
       return `
         <div class="column is-one-quarter">
           <div class="card product-card">
@@ -30,7 +27,6 @@ module.exports = ({ products }) => {
     })
     .join('\n')
 
-  // Return ul with maped products
   return layout({
     content: `
       <section>

@@ -1,20 +1,11 @@
 const layout = require('../layoutMain')
 
-// Passed in items from carts.js
 module.exports = ({ items }) => {
-  // Get total price
-  // let totalPrice = 0
-  // for (let item of items) {
-  //   totalPrice += item.quantity * item.product.price
-  // }
-
-  // Return value!
   const totalPrice = items.reduce((prev, item) => {
     return prev + item.quantity * item.product.price
   }, 0)
 
   const renderedItems = items
-    // map gives array of strings, so need to re-join into big string
     .map(item => {
       return `
         <div class="cart-item message">

@@ -3,7 +3,6 @@ const { getErrors } = require('../../helpers')
 
 module.exports = ({ req, errors }) => {
   return layout({
-    // Pass content on to layout.js
     content: `
       <div class="container">
         <div class="columns is-centered">
