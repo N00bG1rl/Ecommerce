@@ -1,4 +1,4 @@
-# Vanilla JavaScript mini E-commerce
+# JavaScript mini E-commerce
 
 # Created at
 
